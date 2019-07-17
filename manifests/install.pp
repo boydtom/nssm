@@ -28,16 +28,17 @@ define nssm::install (
 
   if $ensure == present {
     exec { 'install_service_name':
-      command  => "nssm install ${service_name} ${program}",
-      path     => $nssm_path,
+      command => "nssm install ${service_name} ${program}",
+      path    => $nssm_path,
+      onlyif  => "& \"${nssm_path}\\nssm\" get '${service_name}' Name",
     }
   }
 
   if $ensure == absent {
     exec { 'remove_service_name':
-      command  => "nssm remove '${service_name}' confirm",
-      path     => $nssm_path,
-      onlyif   => "& \"${nssm_path}\\nssm\" get '${service_name}' Name",
+      command => "nssm remove '${service_name}' confirm",
+      path    => $nssm_path,
+      onlyif  => "& \"${nssm_path}\\nssm\" get '${service_name}' Name",
     }
   }
 
