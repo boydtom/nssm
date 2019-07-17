@@ -28,7 +28,7 @@ define nssm::install (
 
   if $ensure == present {
     exec { 'install_service_name':
-      command  => "nssm install '${service_name}' '${program}'",
+      command  => "nssm install ${service_name} ${program}",
       path     => $nssm_path,
     }
   }
