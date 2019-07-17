@@ -30,8 +30,6 @@ define nssm::install (
     exec { 'install_service_name':
       command  => "nssm install '${service_name}' '${program}'",
       path     => $nssm_path,
-      unless   => "& \"${nssm_path}\\nssm\" get '${service_name}' Name",
-      provider => powershell,
     }
   }
 
@@ -40,7 +38,6 @@ define nssm::install (
       command  => "nssm remove '${service_name}' confirm",
       path     => $nssm_path,
       onlyif   => "& \"${nssm_path}\\nssm\" get '${service_name}' Name",
-      provider => powershell,
     }
   }
 
